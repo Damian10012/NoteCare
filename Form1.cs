@@ -20,8 +20,11 @@ namespace NoteCare
 
         private void Checking()
         {
+            //to be edited with your local obsidian path
+            string path = @"D:\Git\Obsidian\";
+            
 
-            List<string> dir = Directory.GetDirectories(@"D:\Git\Obsidian\").ToList();
+            List<string> dir = Directory.GetDirectories(path).ToList();
             for (int i = 0; i < dir.Count; i++)
             {
                 List<string> toWrite = new List<string>();
@@ -31,20 +34,22 @@ namespace NoteCare
                 string temp = dir[i];
                 var split = temp.Split('\\');
                 dir[i] = split[split.Length - 1];
+                //check for usual generated files
                 if (dir[i] == ".obsidian" || dir[i] == "Templates" || dir[i] == ".git")
                 {
                     dir.RemoveAt(i);
                     i--;
                     continue;
                 }
-                var files = Directory.GetFiles($@"D:\Git\Obsidian\{dir[i]}");
+                var files = Directory.GetFiles($"path{dir[i]}");
                 for (int j = 0; j < files.Length; j++)
                 {
+                    //get rid of whole path
                     temp = files[j];
                     var split2 = temp.Split('\\');
                     files[j] = split2[split2.Length - 1];
                 }
-
+                //file named dir[i].md is always the root of the directory with all the links
                 if (files.Contains($"{dir[i]}.md"))
                 {
                     for (int j = 0; j < files.Length; j++)
@@ -56,12 +61,13 @@ namespace NoteCare
                 }
                 else
                 {
-                    File.Create($@"D:\Git\Obsidian\{dir[i]}\{dir[i]}.md");
+                    File.Create($@"path{dir[i]}\{dir[i]}.md");
                 }
                     
                 try
                 {
-                    var text = File.ReadAllLines($@"D:\Git\Obsidian\{dir[i]}\{dir[i]}.md");
+                    //there is a probability that it can drop while you have the file open - we don't want that
+                    var text = File.ReadAllLines($@"path{dir[i]}\{dir[i]}.md");
                     if (text.Length == toWrite.Count)
                     {
                         continue;
@@ -71,7 +77,8 @@ namespace NoteCare
                 {
 
                 }
-                File.WriteAllLines($@"D:\Git\Obsidian\{dir[i]}\{dir[i]}.md", toWrite);
+                //write everything to the file
+                File.WriteAllLines($@"path{dir[i]}\{dir[i]}.md", toWrite);
             }
 
         }
