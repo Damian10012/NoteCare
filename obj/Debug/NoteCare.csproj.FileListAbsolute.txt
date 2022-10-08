@@ -1,0 +1,11 @@
+C:\Users\tomas\source\repos\NoteCare\NoteCare\bin\Debug\NoteCare.exe.config
+C:\Users\tomas\source\repos\NoteCare\NoteCare\bin\Debug\NoteCare.exe
+C:\Users\tomas\source\repos\NoteCare\NoteCare\bin\Debug\NoteCare.pdb
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.csproj.AssemblyReference.cache
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.csproj.SuggestedBindingRedirects.cache
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.Form1.resources
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.Properties.Resources.resources
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.csproj.GenerateResource.cache
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.csproj.CoreCompileInputs.cache
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.exe
+C:\Users\tomas\source\repos\NoteCare\NoteCare\obj\Debug\NoteCare.pdb
