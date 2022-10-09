@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,7 @@ namespace NoteCare
         {
             //to be edited with your local obsidian path
             string path = @"D:\Git\Obsidian\";
-            
+
 
             List<string> dir = Directory.GetDirectories(path).ToList();
             for (int i = 0; i < dir.Count; i++)
@@ -41,7 +42,7 @@ namespace NoteCare
                     i--;
                     continue;
                 }
-                var files = Directory.GetFiles($"path{dir[i]}");
+                var files = Directory.GetFiles($"{path}{dir[i]}");
                 for (int j = 0; j < files.Length; j++)
                 {
                     //get rid of whole path
@@ -56,29 +57,28 @@ namespace NoteCare
                     {
                         if (files[j] == $"{dir[i]}.md") continue;
                         toWrite.Add($"[[{files[j]}]]");
-
                     }
                 }
                 else
                 {
-                    File.Create($@"path{dir[i]}\{dir[i]}.md");
+                    //creating the root file
+                    File.Create($@"{path}{dir[i]}\{dir[i]}.md");
                 }
-                    
+
                 try
                 {
-                    //there is a probability that it can drop while you have the file open - we don't want that
-                    var text = File.ReadAllLines($@"path{dir[i]}\{dir[i]}.md");
-                    if (text.Length == toWrite.Count)
-                    {
-                        continue;
-                    }
+                    //there is a probability that it can drop while you have the file open or mostly while opening a graph view - we don't want that
+                    var text = File.ReadAllLines($@"{path}{dir[i]}\{dir[i]}.md");
+                    //we don't have to check each file in "toWrite" because Obsidian automatically updates the links upon renaming
+                    if (text.Length == toWrite.Count) continue;
+                    //write everything to the file
+                    File.WriteAllLines($@"{path}{dir[i]}\{dir[i]}.md", toWrite);
                 }
                 catch (Exception)
                 {
 
                 }
-                //write everything to the file
-                File.WriteAllLines($@"path{dir[i]}\{dir[i]}.md", toWrite);
+
             }
 
         }
@@ -86,7 +86,13 @@ namespace NoteCare
         {
             ShowInTaskbar = false;
             Hide();
-            Checking();
+            while (true)
+            {
+                Checking();
+                //could be lower/higher depending your needs, I think 1000 is okay
+                Thread.Sleep(1000);
+            }
+
         }
 
         private void notifyIcon1_Click(object sender, EventArgs e)
